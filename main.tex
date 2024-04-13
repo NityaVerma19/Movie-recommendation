@@ -20,7 +20,7 @@
 \footrulecolor{red!100}%
 
 \fancyhf{}
-\fancyhead[R]{\includegraphics[width=0.25\textwidth]{nmims.png}}
+\fancyhead[R]{\includegraphics[width=0.25\textwidth]{figures/nmims.png}}
 
 \fancyfoot[C]{Nilkamal School of Mathematics, Applied Statistics & Analytics}
 \fancyfoot[R]{\thepage}
@@ -40,7 +40,7 @@
 
 \noindent 
 \begin{center}
-\textbf{ Zaamena Shamji, Anushka Jain, Neha Maheshwari, Nitya Verma, Aditee Gupta } 
+\textbf{ Zaamena Shamji, Neha Maheshwari, Anushka Jain, Nitya Verma, Aditee Gupta } 
 \end{center}\\[-0.5cm]
 
 \begin{center}
@@ -87,12 +87,15 @@ By employing these techniques, the research aims to improve user satisfaction an
 
 \section{LITERATURE REVIEW}
 
+
+
+
+
 \section{DATA}
 
 \subsection{Data Collection}
 
-
-A secondary research was conducted for this project.  \textbf{Netflix Prize Dataset} (\cite{netflix_prize_data})  and \textbf{Netflix Titles} (\cite{soeiro_n.d.}) datasets were taken into account for building the recommendation system. Both the datasets are available on Kaggle.com \cite{kaggle}. The "Netflix prize" dataset is the official dataset published by Netflix for an open competition. 
+A secondary research was conducted for this project.  \textbf{Netflix Prize Dataset} and \textbf{Netflix Titles}  datasets were taken into account for building the recommendation system. Both the datasets are available on Kaggle \cite{kaggle}. The "Netflix prize" dataset is the official dataset published by Netflix for an open competition. 
 
 The "Netflix Titles" dataset is an entirely different dataset containing detailed information about each movie.
 
@@ -225,209 +228,135 @@ The unnecessary columns like \textit{Date}, \textit{Year Of Release}, \textit{Du
 \end{itemize}
 
 \begin{itemize}
-    \item \textbf{Stemming}: Stemming refers to the process of conversion of words to their base/root form. For example, learn, learning, learned etc have the same meaning, hence they can be converted into their root form that is \textit{learn}. Stemming also helps in increasing the accuracy and reduces the duplication. 
+    \item \textbf{Stemming}: Stemming refers to the process of conversion of words to their base/root form. For example, learn, learning, learned etc have the same meaning, hence they can be converted into their root form that is \textit{learn}. Stemming also helps increase the accuracy and reduces duplication. 
 \end{itemize}
 
 
 
-Figure \ref{sigmoid} shows an S-shaped graph of a sigmoid function. 
 
 
-\begin{figure}[ht]
+\section{Analysis}
+\subsection{Collaborative Filtering}
+
+\begin{enumerate}
+    \item \textbf{Item-based}: 
+    \vspace{2}
+    \begin{itemize}
+        \item  \textbf{\textit{STEP 1: User Matrix}}
+        \vspace{2}
+        This step focuses on building the user-movie correlation matrix based on the ratings given by users to all the movies. Figure \ref{user_movie} shows the user-movie matrix 
+
+        \begin{figure}[ht]
+        
 \centering
-\includegraphics[height=6.6cm]{figures/sigmoid.png}
-\caption{Sigmoid Function}
-\label{sigmoid}
+\includegraphics[height=5.5cm]{figures/user_movie.png}
+\caption{User Movie Matrix}
+\label{user_movie}
+\end{figure}
+ \item  \textbf{\textit{STEP 2: Similarity Score }} 
+        Similarity score is calculated between the items to find the likeness in item characteristics. The items in a movie recommendation system are the movies and hence the similarity score is calculated to find out the extent of similarity between all the movies.
+
+        The formula for cosine similarity between two vectors
+The formula for cosine similarity between two vectors $\mathbf{A}$ and $\mathbf{B}$ is given by:
+
+\[
+\text{Cosine Similarity}(\mathbf{A}, \mathbf{B}) = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \cdot \|\mathbf{B}\|}
+\]
+
+
+If the similarity score is closer to 0 it indicates poor similarity among items and a score closer to 1 indicates a stronger similarity among items. After calculating the similarity score using the above formula, the next step is to build the similarity matrix. 
+The items are most similar to each other hence the similarity matrix forms a correlation matrix with diagonal elements as 1.
+
+Following figure \ref{similarity(item)} is a part of the similarity matrix of the dataset:
+
+    \begin{figure}[ht]
+        
+        \centering
+        \includegraphics[height=5.5cm]{figures/similarity(item).png}
+        \caption{Similarity matrix}
+        \label{similarity(item)}
 \end{figure}
 
-(\ref{sigmoid_eq}) shows the equation of a sigmoid function where $x$ is any real-valued number which needs to be converted into a number between 0 and 1
+\item \textbf{\textit{STEP 4: Recommendation Function}}
+This is the last step which is based on building the recommendation system. Before proceeding with the construction of the function, the similarity scores are standardized and normalized by multiplying the similarity score of the movies with the standardized ratings. The ratings are standardized by subtracting the mean of the ratings which is 2.5.
 
-\begin{equation}
-f(x) = \frac{1}{1 + e^{-x}}
-\label{sigmoid_eq}
-\end{equation}
-
-\subsection{Data}
-\subsubsection{Data Collection}
-
-The data is stimulated using Python and AI tools. An overview of the variables considered in the data was taken by going through different research papers and articles. 
-
-\subsubsection{Data Summary}
-The sample encompasses the purchase decisions made by customers regarding various products, which may or may not feature green packaging.The dataset has 330 customers and their information. 
-The data consists of the following variables
-\begin{itemize}
-
-    \item Income 
-    \item Age 
-    \item Gender 
-    \item Price of the product
-    \item Type of product
-    \item Green packaging (Yes/No)
-    \item Purchase Decision (Yes/No)
-\end{itemize}
-
-Whether the customer purchased the product or not is the dependent variable and the rest are independent variables. 
-
-\begin{table}[h]
-\centering
-\caption{Summary Statistics}
-\begin{tabular}{|l|l|l|l|l|l|l|}
-\hline
-\textbf{Index} & \textbf{Age} & \textbf{Income} & \textbf{Gender} & \textbf{Price} & \textbf{Green Pack} & \textbf{Purchase} \\
-\hline
-Count & 330 & 330 & 330 & 330 & 330 & 330 \\
-\hline
-Mean & 40.188 & 79093.939 & 0.500 & 2305.558 & 0.545 & 0.661 \\
-\hline
-Std & 10.561 & 31987.012 & 0.501 & 1251.297 & 0.499 & 0.474 \\
-\hline
-Min & 20 & 25000 & 0 & 300 & 0 & 0 \\
-\hline
-25\% & 31 & 52250 & 0 & 1200 & 0 & 0 \\
-\hline
-50\% & 40 & 78000 & 0.5 & 2050 & 1 & 1 \\
-\hline
-75\% & 49 & 98000 & 1 & 3206.75 & 1 & 1 \\
-\hline
-Max & 60 & 160000 & 1 & 4932 & 1 & 1 \\
-\hline
-\label{summary_statistic}
-\end{tabular}
-\end{table}
-
-Table \ref{summary_statistic} shows the summary statistic of all the variables. The average price is  2305.558 and the mean income of the customers is 79093.939. The lowest income is 25000 and the maximum income is 160000
-
-
-
-\begin{table}[h]
-\centering
-\caption{Correlation Matrix}
-\begin{tabular}{|l|l|l|l|l|l|l|}
-\hline
- & \textbf{Age} & \textbf{Income} & \textbf{Gender} & \textbf{Price} & \textbf{Green Pack} & \textbf{Purchase} \\
-\hline
-\textbf{Age} & 1.00 & 0.87 & -0.07 & 0.69 & -0.17 & 0.33 \\
-\hline
-\textbf{Income} & 0.87 & 1.00 & -0.03 & 0.81 & -0.14 & 0.41 \\
-\hline
-\textbf{Gender} & -0.07 & -0.03 & 1.00 & -0.04 & -0.16 & -0.06 \\
-\hline
-\textbf{Price} & 0.69 & 0.81 & -0.04 & 1.00 & -0.21 & 0.35 \\
-\hline
-\textbf{Green Pack} & -0.17 & -0.14 & -0.16 & -0.21 & 1.00 & -0.06 \\
-\hline
-\textbf{Purchase} & 0.33 & 0.41 & -0.06 & 0.35 & -0.06 & 1.00 \\
-\hline
-\label{Correlation_matrix}
-\end{tabular}
-\end{table}
-
-Table \ref{Correlation_matrix} shows the correlation among the numerical variables. It is evident from the table that the \textit{Income} of the customers and the \textit{Purchase decision} of the customers are positively correlated. 
-It is also apparent that there is a negative correlation between the \textit{age} of the customers and the decision to \textit{buy} the product
-
-
-
-\subsection{Case Analysis}
-
-
+Further, the standardized ratings are sorted and arranged so that the most similar movies are recommended. Given below \ref{recommend(item)} are the recommendations of the movie \textit{Jaws} with the corresponding similarity scores
 \begin{figure}[ht]
-\centering
-\includegraphics[height=6.6cm]{figures/coeff.png}
-\caption{Parameters of the logistic regression model and their assessment}
-\label{fig_regression}
-\label{summary_lr}
+        
+        \centering
+        \includegraphics[height=4.3cm]{figures/recommend(item).png}
+        \caption{Recommendations of the movie with similarity score}
+        \label{recommend(item)}
 \end{figure}
 
-Figure \ref{summary_lr} shows the variables present in the data and their respective coefficients. It is evident that age and income are significant at 0.05 .We will now estimate the parameters of the logistic regression model, the values of which are given.
-
-\begin{equation}
-P(\text{Purchase} = \text{yes} | X) = \frac{e^{a}}{1 + e^{a}}
-\label{LR_model}
-\end{equation}
-where
-\begin{equation}
-a = -0.0899 \times \text{age} + 6.592 \times 10^{-5} \times \text{income} - 0.4696 \times \text{gender} - 7.279 \times 10^{-5} \times \text{price} - 0.302 \times \text{green\_pack}
-\label{LR_equation}
-\end{equation}
-
-Figure \ref{class_tab} shows the classification table. It can be seen that 66.67\% of the data is correctly classified. Only age and income are significant in explaining the decision of the consumer to purchase the product. The negative sign of the age coefficient indicates that older people generally don't buy products with green packaging and the positive coefficient of income shows that people with higher income mostly purchase the products with green packaging.
-
+The function is so built that if any movies are not a part of the dataset then the most rated movies are recommended instead
 
 \begin{figure}[ht]
-\centering
-\includegraphics[height=6.6cm]{figures/confusion_matrix.png}
-\caption{Classification Table}
-\label{class_tab}
+        
+        \centering
+        \includegraphics[height=6.6cm]{figures/not_in_db.png}
+        \caption{Movie not found in the database}
+        \label{not in db}
 \end{figure}
-\vspace{10pt}
-Figure \ref{accuracy} shows the various accuracy measures to better understand the model
+    \end{itemize}
 
 
+\item \textbf{Singular Value Decomposition:}: 
+    \vspace{2}
+\end{enumerate}
+
+
+\subsection{Content-Based Filtering}
 \begin{itemize}
-    \item 	Precision: Precision measures the accuracy of positive predictions made by the model.
-    \begin{equation}
-        \text{Precision} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Positives}}
-    \end{equation}
-    For class 0 (no purchase), it means that among the instances predicted as "no purchase" by the model, 60\% of them are actually "no purchase". Similarly, for class 1 (purchase), 69\% of instances predicted as "purchase" by the model are actually "purchase".
-    \vspace{15pt}
+    \item  \textbf{\textit{STEP 1: Create Tags}} 
+    From the \textit{Netflix Titles} dataset, we will  create tags by combining the relevant columns. \textit{Description}, \textit{Listed in (genre)}, \textit{Cast}, \textit{Director} of each movie were merged in order to create the tags. The data frame \ref{tags} shows the created tags
 
-    \item Recall/Sensitivity : Recall measures the ability of the model to correctly classify the positive instances.
-       \begin{equation}
-        \text{Sensitivity} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Negatives}}
-    \end{equation}
-   The sensitivity of the model turns out to be 85\% which means that the model correctly identifies 85\% of the actual "purchase" instances.
-    \vspace{15pt}
-
-    \item Specificity : Specificity is an accuracy measure which represents the ability of the model to correctly classify the negatives instances. 
-    \begin{equation}
-        \text{Specificity} = \frac{\text{True Negatives}}{\text{True Negatives} + \text{False Positives}}
-
-    \end{equation}
-    
-The specificity of the model is 36\% which means that for the "No purchases" class the model correctly identifies 36\% of the actual "no purchase" instances.
-     \vspace{15pt}
- 
-    \item The F1-score is the harmonic mean of precision and recall. It provides a balance between precision and recall. For class 0 (no purchase), the F1-score is 0.45, and for class 1 (purchase), the F1-score is 0.76.
-
-\end{itemize}
 
 \begin{figure}[ht]
-\centering
-\includegraphics[height=4.5cm]{figures/accuracy.png}
-\caption{Classification Report} 
-\label{accuracy}
+        
+        \centering
+        \includegraphics[height=5cm]{figures/tags.png}
+        \caption{Dataframe containing tags of each movie}
+        \label{tags}
 \end{figure}
 
-\vspace{10pt}
+    \item  \textbf{\textit{STEP 2: Vectorization}}
+    The next step is vectorization by the ‘Bag of words’ algorithm. This feature is used as an extraction technique that models text data for processing in information retrieval. This technique is applied to the previously created tags to numerical data for further processing.
+
+    \item  \textbf{\textit{STEP 3: Similarity Scores}}
+    The similarity score is calculated between the items to find the likeness in item characteristics. The items in a movie recommendation system are the movies and hence the similarity score is calculated to find out the extent of similarity between all the movies based on features like cast, description, title, director etc.
+
+    \item  \textbf{\textit{STEP 4: Recommendation Function}}
+    The last step aims at building the recommendation system based on the similarity score of the movies. The movie with the highest similarity score is recommended. The function is so built that if any movies are not a part of the dataset then the most rated movies are recommended instead.
+
 \begin{figure}[ht]
-\centering
-\includegraphics[height=6.6cm]{figures/AUC_ROC.png}
-\caption{Receiver Operating Characteristic Curve} 
-\label{auc}
-\end{figure} 
+        
+        \centering
+        \includegraphics[height=4.3cm]{figures/recommend(content).png}
+        \caption{Recommendations using Content-Based Filtering}
+        \label{recommend(content)}
+\end{figure}
 
-\vspace{30pt}
-Figure\ref{auc} shows the Receiver operating characteristic curve and the Area Under the curve of the model.
+
+\end{itemize}
+
+\section{CONCLUSIONS}
+
+\section{LIMITATIONS}
 \begin{itemize}
-    \item AUC is the proportion of the concordant pairs in the data if the model is used for classification. AUC for the data turned out to be \textit{0.64} which refers to \textbf{weak discrimination}. The model's performance is fair but there is room for improvement
+    \item Geographic limitations in the data.
+    \item Cold start problem: Item-based recommendation highly depends on the user’s past data therefore, the model cannot be used for new users.
 
-    \item ROC curve can be used to understand the overall worth of the logistic regression model. Sensitivity is on the Y-axis and (1-Specificity) is on the X-axis. The straight line shows the 0.5 cut-off.
+    \item If a user doesn't have enough similar users, predicting accurate recommendations would be a problem.
 \end{itemize}
 
 
-\section{Conclusion}
+\section{FUTURE SCOPE}
 \begin{itemize}
-    \item From the case it can be seen that the consumers belonging to an high income class are the ones who generally purchase products with green packaging. 
-    \item Younger customers are more likely to purchase products with green packaging than older customers. 
-    \item More awareness regarding green packaging should be spread in order to decrease and eventually eliminate non-recyclable waste.
+    \item The hybrid technique which combines the two models can be used to get more accurate results.
+    \item Context-based collaborative filtering can also be merged to geographically and culturally distribute the data.
+    \item Development of real-time machine learning and deep learning models.
 \end{itemize}
-
-\section{Future Scope}
-
-As the data was stimulated for the purpose of understanding and applying logistic regression, the accuracy couldn't be high. More variables and real-life data can be taken into account to make more realistic and better prediction.
-
-
-
 \fontsize{8}{9}\selectfont
 \bibliography{ResearchPaperBib}
 
