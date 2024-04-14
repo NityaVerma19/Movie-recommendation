@@ -9,6 +9,8 @@
 \usepackage{hyperref}
 \usepackage{natbib}
 \usepackage{amsmath}
+\usepackage{float}
+
 
 
 \usepackage{etoolbox,fancyhdr,xcolor}
@@ -29,6 +31,7 @@
 \pagestyle{fancy} %This command sets the page style to fancy, applying the header and footer configurations defined above to the document pages.
 
 \bibliographystyle{apacite}
+\setcitestyle{numbers}
 
 \usepackage{times}
 \begin{document}
@@ -60,10 +63,10 @@
 
 
 \section{INTRODUCTION}
+With the increasing growth of content on over-the-top platforms, users often face information load and get overwhelmed. This makes it difficult for the users to choose content that is relevant to their preferences and a one-size-fits-all approach may not be effective. A recommendation system aids diverse users in getting recommendations according to individual tastes and preferences. It helps users narrow down the wide and confusing horizon of options and saves them the time and effort to go through each and every product. This not only helps users get a personalized experience but also assists them in discovering new content that would have been otherwise overlooked due to popular content.
+
 
 The research objective is to develop and understand the workings and usage of a movie recommendation system. A recommendation system refers to a platform or an engine that provides suggestions for items. The purpose of the recommendation system is to suggest items or products of interest to the users. It studies the relationship between the items and the users to give specific recommendations.
-
-With the increasing growth of content on over-the-top platforms, users often face information load and get overwhelmed. This makes it difficult for the users to choose content that is relevant to their preferences and a one-size-fits-all approach may not be effective. A recommendation system aids diverse users in getting recommendations according to individual tastes and preferences. It helps users narrow down the wide and confusing horizon of options and saves them the time and effort to go through each and every product. This not only helps users get a personalized experience but also assists them in discovering new content that would have been otherwise overlooked due to popular content.
 
 Highly regarded companies like Amazon, Netflix and Spotify use these methods to enhance their customer experience. Their recommendation system utilizes the user's interaction history, their preferences and their similarity with other users to provide recommendations.
 
@@ -83,14 +86,23 @@ For movie recommendations, the project utilizes two types of techniques to provi
     
 \end{enumerate}
 
+\begin{figure}[H]
+\centering
+\includegraphics[height=6cm]{figures/Intro.png}
+\caption{Types of Recommendation Systems}
+\label{Intro}
+\end{figure}
+
 By employing these techniques, the research aims to improve user satisfaction and engagement. This will help the platform to increase viewership and potentially increase revenue.
 
 \section{LITERATURE REVIEW}
 
-In this growing era of technology, the biggest boon is the availability of data. Information can be found everywhere with just by a few clicks of the button. Such vast and easy accessibility of data leads to perplexity. \cite{Yeole}. Ordering this information according to the liking of the user makes it easier to skim through it. That is the exact purpose of a recommendation system. Understanding customer's behaviour and preferences makes it all the more easier for a particular website to display the appropriate data. Websites like Netflix, Amazon, and YouTube use algorithms which help in making better suggestions. 
+In this growing era of technology, the biggest boon is the availability of data. Information can be found everywhere with just by a few clicks of the button. Such vast and easy accessibility of data leads to perplexity \cite{Yeole2021}. Ordering this information according to the liking of the user makes it easier to skim through it. That is the exact purpose of a recommendation system. Understanding customer's behaviour and preferences makes it all the more easier for a particular website to display the appropriate data. Websites like Netflix, Amazon, and YouTube use algorithms which help in making better suggestions. 
+\vspace{4pt}
 
 Algorithms like collaborative filtering have been gaining attention from researchers and companies as it ensure privacy of data \cite{chenna2020}. The dilemma of what to choose increases rapidly when there is a lot to choose from, and solving this particular issue is the ultimate goal of recommendation systems. This paper aims at understanding various algorithms and choosing the most effective one amongst them. \cite{chenna2020} studied the algorithm which not only recommends a movie but also reduces the privacy concerns. They measured the effectiveness of the algorithms by the means of various accuracy measures. 
 
+\vspace{3pt}
 
 \cite{roy2022} performed a systematic review to understand the various applications of recommendation systems and to deep dive into the working of these algorithms. Various problems are present in the recommendation systems which are currently being used. Problems like the Cold start problem which occurs when a new user joins the database and the algorithm is unaware about his/her preferences. Sometimes there are very few ratings given by the active user which leads to the problem of sparsity. \cite{roy2022} found that most of the research papers focused immensely on recommendation system for the movies and only a few paid heed to other applications like tourism. This is a potential research gap found by them
 
@@ -101,7 +113,7 @@ Algorithms like collaborative filtering have been gaining attention from researc
 
 \subsection{Data Collection}
 
-A secondary research was conducted for this project.  \textbf{Netflix Prize Dataset} and \textbf{Netflix Titles}  datasets were taken into account for building the recommendation system. Both the datasets are available on Kaggle \cite{kaggle}. The "Netflix prize" dataset is the official dataset published by Netflix for an open competition. 
+Secondary research was conducted for this project. \textbf{Netflix Prize Dataset} and \textbf{Netflix Titles} datasets were taken into account for building the recommendation system. Both datasets are available on Kaggle \cite{kaggle}. The "Netflix Prize" dataset is the official dataset published by Netflix for an open competition. The purpose of the competition was to find the best algorithm which predict the ratings of the customers. The dataset provided by the company contained only minimal information. 
 
 The "Netflix Titles" dataset is an entirely different dataset containing detailed information about each movie.
 
@@ -119,10 +131,7 @@ The table shows the ratings given by three different customers to movie Id 1 on 
 
 
 
-
-
-
-\begin{table}
+\begin{table}[H]
     \center 
     
     \begin{tabular}{|c|c|c|c|} \hline 
@@ -140,7 +149,7 @@ The table shows the ratings given by three different customers to movie Id 1 on 
 
 The second dataset contains the titles of the movies corresponding to their respective movie IDs. Table \ref{Movie_titles} shows the structure of the \textit{\textbf{movie titles}} dataset. 
 
-\begin{table}
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|c|l|} \hline 
          Movie ID& Year Of Release&Title\\ \hline 
@@ -169,7 +178,7 @@ Figure \ref{netflix titles} shows \textbf{\textit{Netflix Titles}} dataset which
     \item \textbf{Listed In}: Genre of the movie/ Show
     \item \textbf{Description}:The summary description 
 \end{itemize}
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{figures/netflix_title.png}
     \caption{Netflix Titles Dataset}
@@ -196,7 +205,7 @@ The unnecessary columns like \textit{Date}, \textit{Year Of Release}, \textit{Du
     \item \textbf{Merging}: The two datasets (\ref{Data_1} and \ref{Movie_titles}) within the Netflix prize dataset were merged based on the common attribute \textit{MovieID}. The new dataset is given in the figure \ref{Movie_merge}
 \end{itemize}
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \includegraphics[height=4cm]{figures/movie_data.png}
 \caption{Merged Data}
@@ -252,14 +261,16 @@ The unnecessary columns like \textit{Date}, \textit{Year Of Release}, \textit{Du
         \vspace{2}
         This step focuses on building the user-movie correlation matrix based on the ratings given by users to all the movies. Figure \ref{user_movie} shows the user-movie matrix 
 
-        \begin{figure}[ht]
+\begin{figure}[H]
+    
+        \centering
+        \includegraphics[height=5.5cm]{figures/user_movie.png}
+        \caption{User Movie Matrix}
+        \label{user_movie}
         
-\centering
-\includegraphics[height=5.5cm]{figures/user_movie.png}
-\caption{User Movie Matrix}
-\label{user_movie}
 \end{figure}
- \item  \textbf{\textit{STEP 2: Similarity Score }} 
+ 
+    \item  \textbf{\textit{STEP 2: Similarity Score }} 
         Similarity score is calculated between the items to find the likeness in item characteristics. The items in a movie recommendation system are the movies and hence the similarity score is calculated to find out the extent of similarity between all the movies.
 
         The formula for cosine similarity between two vectors
@@ -275,7 +286,7 @@ The items are most similar to each other hence the similarity matrix forms a cor
 
 Following figure \ref{similarity(item)} is a part of the similarity matrix of the dataset:
 
-    \begin{figure}[ht]
+    \begin{figure}[H]
         
         \centering
         \includegraphics[height=5.5cm]{figures/similarity(item).png}
@@ -287,7 +298,7 @@ Following figure \ref{similarity(item)} is a part of the similarity matrix of th
 This is the last step which is based on building the recommendation system. Before proceeding with the construction of the function, the similarity scores are standardized and normalized by multiplying the similarity score of the movies with the standardized ratings. The ratings are standardized by subtracting the mean of the ratings which is 2.5.
 
 Further, the standardized ratings are sorted and arranged so that the most similar movies are recommended. Given below \ref{recommend(item)} are the recommendations of the movie \textit{Jaws} with the corresponding similarity scores
-\begin{figure}[ht]
+\begin{figure}[h]
         
         \centering
         \includegraphics[height=4.3cm]{figures/recommend(item).png}
@@ -297,7 +308,7 @@ Further, the standardized ratings are sorted and arranged so that the most simil
 
 The function is so built that if any movies are not a part of the dataset then the most rated movies are recommended instead
 
-\begin{figure}[ht]
+\begin{figure}[H]
         
         \centering
         \includegraphics[height=6.6cm]{figures/not_in_db.png}
@@ -307,8 +318,42 @@ The function is so built that if any movies are not a part of the dataset then t
     \end{itemize}
 
 
-\item \textbf{Singular Value Decomposition:}: 
-    \vspace{2}
+\item \textbf{STEP 2: Singular Value Decomposition:}: 
+    \vspace{2pt}
+    
+    \begin{itemize}
+        \item \textbf{\textit{STEP 1: User Matrix}}: This step focuses on building the user-movie correlation matrix on the basis of the ratings given by users to all the movies. 
+     This step particularly decomposes or breaks down the user-movie matrix into three matrices, namely, \( U \), \( \Sigma \), and \( V^T \). The "U" matrix represents how users are related to latent features. The latent features are the features that make up the movie, i.e., it can be anything from genre to cast to characters. Any such feature that adds value to a movie is called a latent feature.
+
+\begin{figure}[H]
+        
+        \centering
+        \includegraphics[height=6.6cm]{figures/similarity(item).png}
+        \caption{Similarity Matrix}
+        \label{similarity}
+\end{figure}
+
+So the  \( U \) matrix represents the extent of association of each user with the features of a movie. The rows contain users and the columns contain the features of the movies. The values of this matrix are called\textit{left singular values}
+
+The \( V \) matrix represents the association between the movies and the features. The rows have movies and the columns consist of the features. 
+
+The \( \Sigma \) matrix is a diagonal matrix and contains values that depict the importance of the features. These values are arranged in descending order in the diagonal matrix. 
+This process is called \textit{\textbf{Singular Value Decomposition.}}
+
+\item \textbf{STEP 3: Reconstructed Matrix}:
+\vspace{2pt}
+    This step crucially aims to find the dot product of the three decomposed matrices to find one matrix that is called the reconstructed matrix.
+
+    The reconstructed matrix has movies in rows and user ratings in columns. The matrix is formed by predicting the ratings for the movies that the user has not seen by reading the patterns of all the watched movies. For the movies which the user has seen and rated the ratings in the matrix are the same as the original.
+
+\item \textbf{STEP 4: Recommendation Function}:
+
+    The threshold is kept at the Top 5 rated movies in the entire movie dataset which are similar to the input movie, the recommendations are then made based on the predictions made by the algorithm
+    
+    In case the movies do not exist in the dataset then, the top movies are suggested
+
+
+\end{itemize}
 \end{enumerate}
 
 
@@ -318,7 +363,7 @@ The function is so built that if any movies are not a part of the dataset then t
     From the \textit{Netflix Titles} dataset, we will  create tags by combining the relevant columns. \textit{Description}, \textit{Listed in (genre)}, \textit{Cast}, \textit{Director} of each movie were merged in order to create the tags. The data frame \ref{tags} shows the created tags
 
 
-\begin{figure}[ht]
+\begin{figure}[H]
         
         \centering
         \includegraphics[height=5cm]{figures/tags.png}
@@ -335,7 +380,7 @@ The function is so built that if any movies are not a part of the dataset then t
     \item  \textbf{\textit{STEP 4: Recommendation Function}}
     The last step aims at building the recommendation system based on the similarity score of the movies. The movie with the highest similarity score is recommended. The function is so built that if any movies are not a part of the dataset then the most rated movies are recommended instead.
 
-\begin{figure}[ht]
+\begin{figure}[H]
         
         \centering
         \includegraphics[height=4.3cm]{figures/recommend(content).png}
@@ -364,7 +409,10 @@ The function is so built that if any movies are not a part of the dataset then t
     \item Development of real-time machine learning and deep learning models.
 \end{itemize}
 \fontsize{8}{9}\selectfont
+
+
 \bibliography{ResearchPaperBib}
+\bibliographystyle{chicago}
 
 
 
