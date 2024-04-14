@@ -352,7 +352,7 @@ Following figure \ref{similarity(item)} is a part of the similarity matrix of th
         \label{similarity(item)}
 \end{figure}
 
-\item \textbf{\textit{STEP 4: Recommendation Function}}
+\item \textbf{\textit{STEP 3: Recommendation Function}}
 This is the last step which is based on building the recommendation system. Before proceeding with the construction of the function, the similarity scores are standardized and normalized by multiplying the similarity score of the movies with the standardized ratings. The ratings are standardized by subtracting the mean of the ratings which is 2.5.
 
 Further, the standardized ratings are sorted and arranged so that the most similar movies are recommended. Given below \ref{recommend(item)} are the recommendations of the movie \textit{Jaws} with the corresponding similarity scores
@@ -423,11 +423,12 @@ This process is called \textit{\textbf{Singular Value Decomposition.}}
 \vspace{2pt}
     This step crucially aims to find the dot product of the three decomposed matrices to find one matrix that is called the reconstructed matrix.
 
-    The reconstructed matrix has movies in rows and user ratings in columns. The matrix is formed by predicting the ratings for the movies that the user has not seen by reading the patterns of all the watched movies. For the movies which the user has seen and rated the ratings in the matrix are the same as the original.
+  
 
 \item \textbf{\textit{STEP 3: Recommendation Function}}:
+  
+    The output of Singular Value Decomposition for user ID 6 provides information about the latent factors that represent this user's preferences and the predicted ratings for all items (movies) based on these preferences. Latent factors represent THE underlying characteristics or features that describe the relationships between users and movies. These factors are inferred from the patterns present in the ratings matrix.
 
-    The threshold is kept at the Top 5 rated movies in the entire movie dataset which are similar to the input movie, the recommendations are then made based on the predictions made by the algorithm
     
     In case the movies do not exist in the dataset then, the top movies are suggested
 \begin{figure} [H]
@@ -468,7 +469,7 @@ This process is called \textit{\textbf{Singular Value Decomposition.}}
 \begin{figure}[H]
         
         \centering
-        \includegraphics[height=3.7cm]{figures/recommend(content).png}
+        \includegraphics[height=3.7cm]{figures/content_output.png}
         \caption{Recommendations using Content-Based Filtering}
         \label{recommend(content)}
 \end{figure}
@@ -486,7 +487,12 @@ Following figure \ref{conclude} shows the recommendations from all the three rec
         \label{conclude}
 \end{figure}
 
-The recommendations made using content based recommendation system seem very similar whereas the recommendations made using SVD seem to be comparatively dissimilar
+\begin{itemize}
+    \item The recommendations through content based are very similar as they are based on parameters like cast and director etc. The Memory Based recommendations are based on user similarities instead of movie similarities, hence, dissimilar movies
+    \item The output of Singular Value Decomposition provides recommendations of movies for User 6 based on its past interactions 
+
+
+\end{itemize}
 
 \section{LIMITATIONS}
 \begin{itemize}
