@@ -2,7 +2,7 @@ import streamlit as st
 import pickle
 import pandas as pd
 from tmdbv3api import TMDb, Movie
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide", page_title= "Movie Recommendation", page_icon= "📽️")
 tmdb = TMDb()
 tmdb.api_key = '6d119a509b78d7d9adbaf2ca0f644541'
 movie_api = Movie()
