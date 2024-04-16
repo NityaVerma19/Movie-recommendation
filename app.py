@@ -53,7 +53,7 @@ with tab1:
             with locals()[f"col{i + 1}"]:
                 st.subheader(recommended_movie_names[i])
                 if recommended_movie_posters[i]:
-                    st.image(recommended_movie_posters[i], width = 300)
+                    st.image(recommended_movie_posters[i], width = 150)
                 else:
                     st.write("Poster not available")
 #------------------------------------------------------COLLABORATIVE-------------------------------------------------------------------------
@@ -124,6 +124,6 @@ with tab2:
             with locals()[f"col{i+1}"]:
                 st.subheader(recommended_movie_names[i])
                 if recommended_movie_posters[i] != "Poster not available":
-                    st.image(recommended_movie_posters[i], width = 300)
+                    st.image(recommended_movie_posters[i], width = 150)
                 else:
                     st.subheader(recommended_movie_posters[i])
