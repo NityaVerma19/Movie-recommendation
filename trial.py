@@ -8,11 +8,11 @@ tmdb.api_key = '6d119a509b78d7d9adbaf2ca0f644541'
 movie_api = Movie()
 
 
-movie_dict = pickle.load(open("data/movie_dict_img.pkl", 'rb'))
+movie_dict = pickle.load(open("movie_dict_img.pkl", 'rb'))
 movies = pd.DataFrame(movie_dict)
 movies['title'] = movies['title'].apply(lambda x: x.title())
 
-similarity = pickle.load(open("data/similarity.pkl",'rb'))
+similarity = pickle.load(open("similarity.pkl",'rb'))
 
 def get_movie_poster(title):
     search = movie_api.search(title)
@@ -27,7 +27,7 @@ def get_movie_poster(title):
 
 
 
-#---------------------------------------------------CONTENT BASED-----------------------------------------------------------------#
+#-------------------------------------------------------------------------
 
 tab1, tab2 = st.tabs(["Content Based", "Collaborative Filtering"])
 with tab1:
@@ -56,10 +56,10 @@ with tab1:
                     st.image(recommended_movie_posters[i], width = 300)
                 else:
                     st.write("Poster not available")
-#------------------------------------------------------COLLABORATIVE-------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------------------
 with tab2:
-    similar_movie = pickle.load(open("data/similar_cf.pkl", "rb"))
-    movie_img = pickle.load(open("data/movie_img.pkl", "rb"))
+    similar_movie = pickle.load(open("similar_cf.pkl", "rb"))
+    movie_img = pickle.load(open("movie_img.pkl", "rb"))
     movie_titles = pd.DataFrame(movie_img)
 
     values_to_delete = ["Isle of Man TT 2004 Review", "Dinosaur Planet", 'The Rise and Fall of ECW',
