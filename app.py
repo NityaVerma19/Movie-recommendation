@@ -8,6 +8,10 @@ tmdb.api_key = '6d119a509b78d7d9adbaf2ca0f644541'
 movie_api = Movie()
 
 
+
+
+    #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 movie_dict = pickle.load(open("data/movie_dict_img.pkl", 'rb'))
 movies = pd.DataFrame(movie_dict)
 movies['title'] = movies['title'].apply(lambda x: x.title())
@@ -53,7 +57,7 @@ with tab1:
             with locals()[f"col{i + 1}"]:
                 st.subheader(recommended_movie_names[i])
                 if recommended_movie_posters[i]:
-                    st.image(recommended_movie_posters[i], width = 150)
+                    st.image(recommended_movie_posters[i], width = 250)
                 else:
                     st.write("Poster not available")
 #------------------------------------------------------COLLABORATIVE-------------------------------------------------------------------------
@@ -124,6 +128,6 @@ with tab2:
             with locals()[f"col{i+1}"]:
                 st.subheader(recommended_movie_names[i])
                 if recommended_movie_posters[i] != "Poster not available":
-                    st.image(recommended_movie_posters[i], width = 150)
+                    st.image(recommended_movie_posters[i], width = 250)
                 else:
                     st.subheader(recommended_movie_posters[i])
